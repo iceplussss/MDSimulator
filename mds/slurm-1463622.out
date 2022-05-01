@@ -1,0 +1,6 @@
+Traceback (most recent call last):
+  File "simulation.py", line 2, in <module>
+    from atoms import system
+  File "/home/bingjiay/APC523/APC523Project/mds/atoms.py", line 1, in <module>
+    import ase
+ModuleNotFoundError: No module named 'ase'
