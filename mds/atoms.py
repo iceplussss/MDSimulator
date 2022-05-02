@@ -1,19 +1,52 @@
-import ase
-import numpy as np
-import ase.io
+"""Classes which contains information of the atoms, 
+including their symbols, positions, masses, velocities. 
+Also some "get functions" for calculation and output.
+Unit: force = eV/A, time = fs, length = A
+"""
 
-# Unit: force = eV/A, time = fs, length = A
+import ase
+import ase.io
+import numpy as np
+
+
 class system(ase.Atoms):
 
     def __init__(self, symbols, positions, cell, pbc=[True,True,True]):
+        """Initialize a system.
+        Args:
+           symbols: an array of the atoms symbols  
+           positions: an array of the atoms positions
+           cell: an array giving the size of simulation box
+           pbc: an optional array for boundary conditions of simulation box
+        """
         super().__init__(symbols=symbols, positions=positions, cell=cell, pbc=pbc)
 
+
     def get_eV_mass(self):
-        mass = self.get_masses()              # unit: u
-        mass = mass * (1.66e-27 / 1.6022e-23) # unit: eV fs^2 / A^2
+        """Calculates the masses in unit [eV fs^2 / A^2].
+        Converts masses from [u] to [eV fs^2 / A^2].
+        """
+
+        mass = self.get_masses()              
+        mass = mass * (1.66e-27 / 1.6022e-29) 
         return mass
 
+
+    def create_velocities(self, temp):
+        """Creates initial velocities for given temperature by Gaussian  
+        """
+
+        kb = 8.617333262e-5 # in eV
+        m = self.get_eV_mass()  
+        m = m.reshape((-1,1)) 
+        N = self.get_positions().shape[0] 
+        v = np.random.normal(0, 1, N*3).reshape(N,3)
+        self.set_velocities( v * (kb * temp / m)**0.5 )
+
+
     def get_ke(self):
+        """Calculates the total kinetic energy."""
+
         m = self.get_eV_mass()  
         m = m.reshape((-1,1)) 
         v = self.get_velocities()
@@ -21,23 +54,9 @@ class system(ase.Atoms):
         total_ke = ke.sum()
         return total_ke
 
+
     def get_pe(self, pot_engine):
+        """Calculates the total potential energy."""
+
         total_pe = pot_engine(self)
         return total_pe
-
-
-if __name__ == "__main__":
-    r = 3.82
-    dr = 0.001
-    pos = [ [0, 0, 0.0 + dr],
-            [0, 0, r],
-            [0, 0, r * 2],
-            [0, 0, r * 3],
-            [0, 0, r * 4]]
-    cell = np.eye(3) * r * 5
-    atoms = system(['Ar','Ar','Ar','Ar','Ar'], pos, cell, pbc=True)
-    # print(len(atoms))
-    # print(atoms.get_cell())
-    print(atoms.get_masses())
-    print(atoms.get_eV_mass())
-    # ase.io.write("init.xyz", atoms, format="extxyz")

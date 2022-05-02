@@ -1,6 +1,6 @@
 import numpy as np
 import ase
-from atoms import system
+from .atoms import system
 
 
 def lj(atoms, epsilon, sigma, cutoff=4):

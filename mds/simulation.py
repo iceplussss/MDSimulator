@@ -1,13 +1,15 @@
+
+
 import json
-from atoms import system
-from integrator import update
 import ase.io
-from force_fields import lj
+from .atoms import system
+from .integrator import update
+from .force_fields import lj
 from matplotlib import pyplot as plt
 import logging
 from time import time
 
-class simulation:
+class dynamics:
 
     def __init__(self, json_path):
 
@@ -26,6 +28,9 @@ class simulation:
             self.temp = jdata["temp"]
         else:
             raise NotImplementedError('Only NVE and NVT ensembles are supported')
+        if jdata["init_temp"]:
+            self.init_temp = jdata["init_temp"]
+            self.atoms.create_velocities(self.init_temp)
 
         # Force Fields
         if jdata['ff_style'] == 'lj':

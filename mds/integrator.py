@@ -1,6 +1,7 @@
 import numpy as np
 import ase
-from atoms import system
+from .atoms import system
+
 
 def update(atoms, engine, dt):
     mass = atoms.get_eV_mass()           
