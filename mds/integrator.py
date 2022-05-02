@@ -1,9 +1,22 @@
+"""Functions used to integrate the Newton's equations of motion.
+The velocity Verlet algorithm is implemented: Time reversibility 
+and preservation of the symplectic form on phase space are kept.
+"""
+
 import numpy as np
 import ase
+
 from .atoms import system
 
 
 def update(atoms, engine, dt):
+    """Initialises Simulation class.
+    Args:
+        atoms: a system object describing its current state
+        engine:  force engine for the simulation
+        dt: timestep for the simulation
+    """
+    
     mass = atoms.get_eV_mass()           
     mass = mass.reshape((-1,1))
 

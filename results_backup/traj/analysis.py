@@ -4,7 +4,7 @@ import ase.io
 from ase.geometry.analysis import Analysis
 import matplotlib.pyplot as plt
 
-num_frames = 350
+num_frames = 600
 num_bins = 100
 throw = 50
 lst = []

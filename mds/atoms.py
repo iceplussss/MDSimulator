@@ -1,4 +1,4 @@
-"""Classes which contains information of the atoms, 
+"""An extended Class which contains information of the atoms, 
 including their symbols, positions, masses, velocities. 
 Also some "get functions" for calculation and output.
 Unit: force = eV/A, time = fs, length = A
@@ -12,7 +12,7 @@ import numpy as np
 class system(ase.Atoms):
 
     def __init__(self, symbols, positions, cell, pbc=[True,True,True]):
-        """Initialize a system.
+        """Initializes a "system" object. 
         Args:
            symbols: an array of the atoms symbols  
            positions: an array of the atoms positions

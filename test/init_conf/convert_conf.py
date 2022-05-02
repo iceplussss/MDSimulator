@@ -1,3 +1,5 @@
+"""Reads a lammps config file (108 Ar) and save its xyz version."""
+
 import ase.io
 
 init_xyz = ase.io.read("ar.conf", format='lammps-dump-text')

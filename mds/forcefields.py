@@ -1,18 +1,34 @@
-import numpy as np
+"""Functions which defines the forces among atoms.
+Currently only Lennard-Jones potential is implemented.
+"""
+
 import ase
+import numpy as np
+
 from .atoms import system
 
 
-def lj(atoms, epsilon, sigma, cutoff=4):
-    '''
-    '''
-    def lj_force_engine_slow(atoms):
-        cell_size = np.diag(atoms.get_cell())
-        if cutoff > cell_size.min()/2:
-            raise NotImplementedError("cutoff error")
+def lj(atoms, epsilon, sigma, cutoff):
+    """Lennard-Jones potential.
+    Args:
+        atoms: an system object
+        epsilon: depth of the potential well
+        sigma: distance at which the potential energy is zero
+        cutoff: a double giving cutoff for the potential
+    Returns:
+        lj_force_engine: a function to evaluate forces
+        lj_pot_engine: a function to calculate potential energy
+    """
 
-        forces = np.zeros_like(atoms.get_positions())
+
+    def lj_force_engine_slow(atoms):
+        """Original force engine: > O(N^2)"""
+
         N = len(atoms)
+        cell_size = np.diag(atoms.get_cell())
+        if cutoff > cell_size.min() / 2:
+            raise NotImplementedError("cutoff error")
+        forces = np.zeros_like(atoms.get_positions())
         for j in range(N):
             fij = [0,0,0]
             for i in range(N):
@@ -22,7 +38,16 @@ def lj(atoms, epsilon, sigma, cutoff=4):
             forces[j] = fij * 1
         return forces
 
+
     def lj_force_engine(atoms):
+        """Improved force engine: faster
+
+        Args:
+            atoms: an system object
+        Returns:
+            forces: an array for forces on all atom
+        """
+
         cell_size = np.diag(atoms.get_cell())
         if cutoff > cell_size.min()/2:
             raise NotImplementedError("cutoff error")
@@ -41,7 +66,14 @@ def lj(atoms, epsilon, sigma, cutoff=4):
             forces[i] = (res.reshape(-1,1)  * (-rij)).sum(0)
         return forces
 
+
     def lj_pot_engine(atoms):
+        """LJ potential engine: 
+        Args:
+            atoms: an system object
+        Returns:
+            forces: an array for forces on each atom
+        """
         cell_size = np.diag(atoms.get_cell())
         if cutoff > cell_size.min()/2:
             raise NotImplementedError("cutoff error")
@@ -57,9 +89,13 @@ def lj(atoms, epsilon, sigma, cutoff=4):
         pot = pot/2 # double counting
         return pot
 
+
     return lj_force_engine, lj_pot_engine
 
+
 def lj_force(r, epsilon, sigma, cutoff):
+    """A helper function to calculate part of forces based on LJ equation"""
+
     if r <= cutoff and r > 0:
         sigma_r = sigma / r
         res = 24 * epsilon / r**2 * (2 * sigma_r**12 - sigma_r**6)
@@ -67,7 +103,10 @@ def lj_force(r, epsilon, sigma, cutoff):
     else: 
         return 0
 
+
 def lj_energy(r, epsilon, sigma, cutoff):
+    """A helper function to calculate energy based on LJ equation"""
+
     if r <= cutoff and r > 0:
         sigma_r = sigma / r
         res = 4 * epsilon * (sigma_r**12 - sigma_r**6)
