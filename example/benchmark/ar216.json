@@ -1,0 +1,15 @@
+{
+    "mode": "nve",
+    "init_temp": 94,
+
+    "time_step": 1,
+    "total_steps": 100,
+
+    "init_config_path": "./ar216.xyz",
+    "ff_style": "lj",
+    "ff_coeff": [0.01, 3.405, 8], 
+
+    "log_freq": 100,
+    "dump_freq": 100
+
+}

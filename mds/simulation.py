@@ -4,7 +4,7 @@
 import json
 import ase.io
 import logging
-from time import time
+import os
 
 from .atoms import system
 from .integrator import update
@@ -68,12 +68,13 @@ class dynamics:
         logging.info('============================= SIMULATION =============================')
         logging.info('Step       PotEng          KinEng          TotEng          Volume')
         
+        if os.path.exists('./traj') is False:
+            os.mkdir('traj')
+
         if self.ff == 'lj':
             force_engine, pot_engine = lj(self.atoms, self.epsilon, self.sigma, self.cutoff)
         
         while self.step < self.total_steps:
-            t0 = time()
-
             # Logging output info 
             if self.step % self.log_freq == 0:
                 ke = self.atoms.get_ke()
@@ -94,7 +95,3 @@ class dynamics:
                 v_zeromean = v - v.mean(0)
                 self.atoms.set_velocities(v_zeromean)
             self.step += 1
-            tt = time() - t0
-
-        # Record the time used
-        print('used time :{}'.format(tt))

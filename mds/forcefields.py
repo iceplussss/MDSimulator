@@ -41,7 +41,6 @@ def lj(atoms, epsilon, sigma, cutoff):
 
     def lj_force_engine(atoms):
         """Improved force engine: faster
-
         Args:
             atoms: an system object
         Returns:
@@ -74,6 +73,7 @@ def lj(atoms, epsilon, sigma, cutoff):
         Returns:
             forces: an array for forces on each atom
         """
+        
         cell_size = np.diag(atoms.get_cell())
         if cutoff > cell_size.min()/2:
             raise NotImplementedError("cutoff error")
