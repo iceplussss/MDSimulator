@@ -30,13 +30,7 @@ A sample input file is shown below:
 
 ### Prerequisites 
 
-The main dependencies of MDS are ASE and numpy libraries, which are specified in the installation setup file. 
-```
-install_requires=[
-    'ase>=3.21',
-    'numpy>=1.14.5',
-]
-```
+The main dependencies of MDS are ASE and numpy libraries.
 
 ### Installation 
 
