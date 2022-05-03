@@ -2,7 +2,6 @@
 
 MD Simulator is written in python and the main dependencies are python packages Numpy and ASE. It is capable of performing molecular dynamics simulation for a collection of atoms with a given simulated ensemble and force field.
 
-The main dependencies of MDS are ASE and numpy libraries.
 
 ## Getting Started 
 
