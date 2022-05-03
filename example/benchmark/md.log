@@ -58,3 +58,15 @@ INFO:root:0    -2.326980e+01    5.040375e+00    -1.822942e+01    2.089096e+04
 INFO:root:============================= SIMULATION =============================
 INFO:root:Step       PotEng          KinEng          TotEng          Volume
 INFO:root:0    -4.653959e+01    1.046580e+01    -3.607380e+01    4.178192e+04
+INFO:root:============================= SIMULATION =============================
+INFO:root:Step       PotEng          KinEng          TotEng          Volume
+INFO:root:0    -5.817449e+00    1.304595e+00    -4.512854e+00    5.222740e+03
+INFO:root:============================= SIMULATION =============================
+INFO:root:Step       PotEng          KinEng          TotEng          Volume
+INFO:root:0    -1.163490e+01    2.642510e+00    -8.992389e+00    1.044548e+04
+INFO:root:============================= SIMULATION =============================
+INFO:root:Step       PotEng          KinEng          TotEng          Volume
+INFO:root:0    -2.326980e+01    4.857095e+00    -1.841270e+01    2.089096e+04
+INFO:root:============================= SIMULATION =============================
+INFO:root:Step       PotEng          KinEng          TotEng          Volume
+INFO:root:0    -4.653959e+01    1.065268e+01    -3.588691e+01    4.178192e+04

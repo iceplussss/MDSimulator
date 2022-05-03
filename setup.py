@@ -8,6 +8,5 @@ setup(
     install_requires=[
         'ase>=3.21',
         'numpy>=1.14.5',
-        'matplotlib>=2.2.0'
     ]
 )
