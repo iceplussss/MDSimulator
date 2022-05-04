@@ -2,7 +2,7 @@
 
 MD Simulator is written in python and the main dependencies are python packages Numpy and ASE. It is capable of performing molecular dynamics simulation for a collection of atoms with a given simulated ensemble and force field.
 
-![alt text](https://github.com/iceplussss/APC523Project/blob/main/TimeToDisco.png)
+![alt text](https://github.com/iceplussss/APC523Project/blob/main/TimeToDisco.png| width=100)
 
 ## Getting Started 
 
